@@ -1,18 +1,9 @@
 import logging
 
 from config import BOT_TOKEN
+from handlers import pull_image_handler
 
-from telegram import Update, ForceReply
-from telegram.ext import Updater, CommandHandler, CallbackContext
-
-
-def start(update: Update, context: CallbackContext) -> None:
-    """Send a message when the command /start is issued."""
-    user = update.effective_user
-    update.message.reply_markdown_v2(
-        fr'Hi {user.mention_markdown_v2()}\!',
-        reply_markup=ForceReply(selective=True),
-    )
+from telegram.ext import Updater, Filters, MessageHandler
 
 
 def bootstrap() -> None:
@@ -20,7 +11,7 @@ def bootstrap() -> None:
 
     dispatcher = updater.dispatcher
 
-    dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_handler(MessageHandler(Filters.photo & ~Filters.command, pull_image_handler))
 
     logging.basicConfig(level=logging.DEBUG,
                         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
