@@ -1,5 +1,6 @@
+import utils.imageProcessing as imageP
+
 from skimage import io
-import matplotlib.pyplot as plt
 
 from telegram import Update
 from telegram.ext import CallbackContext
@@ -11,9 +12,8 @@ def pull_image_handler(update: Update, context: CallbackContext) -> None:
 
     image = io.imread(newFile['file_path'])
 
-    plt.imshow(image)
-    plt.show()
-
-    update.message.reply_markdown_v2(
-        fr'Photo ok'
+    image = imageP.start(image)
+    update.message.reply_photo(
+        photo=image,
+        caption="ok"
     )
