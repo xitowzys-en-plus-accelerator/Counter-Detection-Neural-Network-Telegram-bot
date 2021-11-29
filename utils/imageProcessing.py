@@ -1,5 +1,5 @@
 import cv2 as cv
-import numpy
+from PIL import Image
 import numpy as np
 
 from io import BytesIO
@@ -18,7 +18,9 @@ def start(path) -> bytes:
     :param image: image in numpy array
     :return: binary image
     """
-    # image_invert = np.invert(path)
-    # return numpy_to_binary(image_invert)
+    img = Image.open(path)
+    image = np.array(img)
 
-    return b'0'
+    image_invert = np.invert(image)
+
+    return numpy_to_binary(image_invert)
