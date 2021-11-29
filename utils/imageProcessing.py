@@ -11,12 +11,14 @@ def numpy_to_binary(arr):
     return io_buf.read()
 
 
-def start(image: numpy.ndarray) -> bytes:
+def start(path) -> bytes:
     """
     Handling the sent image by the user and sending it back to the user
 
     :param image: image in numpy array
     :return: binary image
     """
-    image_invert = np.invert(image)
-    return numpy_to_binary(image_invert)
+    # image_invert = np.invert(path)
+    # return numpy_to_binary(image_invert)
+
+    return b'0'
